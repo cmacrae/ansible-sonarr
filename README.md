@@ -1,6 +1,6 @@
 Sonarr
 ======
-This role deploys [Sonarr](https://sonarr.tv), a mart PVR for newsgroup and bittorrent users.
+This role deploys [Sonarr](https://sonarr.tv), a smart PVR for newsgroup and bittorrent users.
 
 Requirements
 ------------
