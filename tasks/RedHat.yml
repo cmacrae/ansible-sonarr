@@ -12,3 +12,6 @@
       owner: root
       group: root
       mode: 0644
+
+  - name: Ensure libmediainfo is installed
+    package: name=libmediainfo state=present

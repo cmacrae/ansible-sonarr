@@ -21,3 +21,6 @@
       repo: 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
       state: present
     when: ansible_distribution == "Debian"
+
+  - name: Ensure libmediainfo0 is installed
+    package: name=libmediainfo0 state=present
