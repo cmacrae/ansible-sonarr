@@ -1,0 +1,15 @@
+[Unit]
+Description=Sonarr Server
+After=network.target
+
+[Service]
+WorkingDirectory={{ sonarr_user_home }}
+ExecStart=/usr/bin/mono {{ sonarr_user_home }}/bin/NzbDrone/NzbDrone.exe -nobrowser -data {{ sonarr_data_path }}
+GuessMainPID=no
+Type=simple
+User={{ sonarr_user_name }}
+Group={{ sonarr_group_name }}
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

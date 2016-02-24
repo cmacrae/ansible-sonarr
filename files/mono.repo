@@ -1,0 +1,4 @@
+[mono]
+name=mono
+baseurl=http://download.mono-project.com/repo/centos/
+enabled=1

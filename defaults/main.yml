@@ -1,0 +1,15 @@
+---
+sonarr_user_name: sonarr
+sonarr_group_name: sonarr
+sonarr_user_uid: 1005
+sonarr_group_gid: 1005
+sonarr_user_home: /var/lib/{{ sonarr_user_name }}
+sonarr_exe_url: 'http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz'
+sonarr_data_path: "{{ sonarr_user_home }}/data"
+sonarr_service_reload_command: systemctl daemon-reload
+sonarr_service_file:
+  src: sonarr.service.j2
+  dest: /etc/systemd/system/sonarr.service
+sonarr_mono_gpg_key: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+sonarr_dependencies:
+  - mono-devel

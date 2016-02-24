@@ -1,0 +1,7 @@
+---
+
+  - name: Apply the cmacrae.sonarr role to all sonarr_servers
+    hosts: sonarr_servers
+
+    roles:
+      - ../../cmacrae.sonarr

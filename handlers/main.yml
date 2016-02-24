@@ -1,0 +1,7 @@
+---
+
+  - name: Reload Sonarr service config
+    command: "{{ sonarr_service_reload_command }}"
+
+  - name: Restart Sonarr service
+    service: name=sonarr state=restarted

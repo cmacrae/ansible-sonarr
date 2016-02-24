@@ -1,0 +1,62 @@
+---
+  - include: "{{ ansible_os_family }}.yml"
+
+  - name: Ensure Sonarr service group exists
+    group:
+      name: "{{ sonarr_group_name }}"
+      gid: "{{ sonarr_group_gid }}"
+      system: true
+      state: present
+           
+  - name: Ensure Sonarr service user exists
+    user:
+      name: "{{ sonarr_user_name }}"
+      uid: "{{ sonarr_user_uid }}"
+      group: "{{ sonarr_group_name }}"
+      home: "{{ sonarr_user_home }}"
+      system: true
+      state: present
+
+  - name: Ensure Sonarr dependencies are installed
+    package: name={{ sonarr_dependencies }} state=present
+
+  - name: Ensure Sonarr data/bin directories exists
+    file:
+      dest: "{{ item }}"
+      owner: "{{ sonarr_user_name }}"
+      group: "{{ sonarr_group_name }}"
+      state: directory
+    with_items:
+      - "{{ sonarr_data_path }}"
+      - "{{ sonarr_user_home }}/bin"
+
+  - name: Fetch the Sonarr tarball
+    get_url:
+      url: "{{ sonarr_exe_url }}"
+      dest: "{{ sonarr_data_path }}"
+    become: true
+    become_user: "{{ sonarr_user_name }}"
+
+  - name: Ensure the Sonarr tarball has been unpacked
+    unarchive:
+      src: "{{ sonarr_data_path }}/NzbDrone.master.tar.gz"
+      dest: "{{ sonarr_user_home }}/bin/"
+      copy: false
+    become: true
+    become_user: "{{ sonarr_user_name }}"
+
+  - name: Deploy Sonarr service manifest
+    template:
+      src: "{{ sonarr_service_file.src }}"
+      dest: "{{ sonarr_service_file.dest }}"
+      owner: root
+      group: root
+      mode: 0600
+    notify:
+      - Reload Sonarr service config
+      - Restart Sonarr service
+
+  - meta: flush_handlers
+
+  - name: Ensure the Sonarr service is running and enabled on boot
+    service: name=sonarr state=started enabled=yes
