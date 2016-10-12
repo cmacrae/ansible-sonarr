@@ -36,6 +36,8 @@
       dest: "{{ sonarr_data_path }}"
     become: true
     become_user: "{{ sonarr_user_name }}"
+    notify:
+      - Restart Sonarr service
 
   - name: Ensure the Sonarr tarball has been unpacked
     unarchive:

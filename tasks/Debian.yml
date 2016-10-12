@@ -22,5 +22,5 @@
       state: present
     when: ansible_distribution == "Debian"
 
-  - name: Ensure libmediainfo0 is installed
-    package: name=libmediainfo0 state=present
+  - name: Ensure libmediainfo0v5 is installed
+    package: name=libmediainfo0v5 state=present
