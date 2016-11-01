@@ -13,5 +13,12 @@
       group: root
       mode: 0644
 
+  - name: Ensure the EPEL yum repository and key are present
+    yum_repository:
+      name: epel
+      description: EPEL YUM repo
+      baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+      gpgkey: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-$releasever
+
   - name: Ensure libmediainfo is installed
     package: name=libmediainfo state=present
